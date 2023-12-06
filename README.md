@@ -16,6 +16,8 @@ $ mkdir venv/
 $ virtualenv --python=python3 venv/
 $ . ./venv/bin/activate
 $ pip3 install -r requirements.txt
+$ ./manage.py makemigrations
+$ ./manage.py migrate
 $ ./manage.py runserver
 ```
 
@@ -41,11 +43,17 @@ $ curl -H "Content-Type: application/json" -X POST localhost:8000/tasks/ -d '{"n
 ```shell
 $ curl -X GET localhost:8000/tasks/
 {
-    "id": 1,
-    "name": "Task 1",
-    "description": "a new task",
-    "estimate": 20,
-    "state": "Planned"
+    "Planned": [
+        {
+            "id": 1,
+            "name": "Task 1",
+            "description": "a new task",
+            "estimate": 20,
+            "state": "Planned"
+        }
+    ],
+    "In Progress": [],
+    "Completed": []
 }
 ```
 
