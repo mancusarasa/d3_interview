@@ -117,7 +117,34 @@ $ curl -X DELETE localhost:8000/tasks/1
 
 # Testing
 
-To run the unit tests suite, create a virtualenv and then run the Django test command:
+In order to run unit tests, use the provided `docker-compose-test.yml` file, like so:
+
+```shell
+docker-compose -f docker-compose-test.yml build && docker-compose -f docker-compose-test.yml up --abort-on-container-exit --exit-code-from task_tracker
+```
+
+You'll get a bunch of output from PostgreSQL (since the tests need interaction with the database), and then at the end the result of your tests:
+
+```shell
+task_tracker_1  | test_create_task_in_non_default_state_creates_the_task_in_correct_state (task_tracker.tests.test_task_collection.TaskCollectionTests) ... ok
+task_tracker_1  | test_create_task_with_correct_fields_creates_the_task (task_tracker.tests.test_task_collection.TaskCollectionTests) ... ok
+task_tracker_1  | test_create_task_without_mandatory_fields_returns_error (task_tracker.tests.test_task_collection.TaskCollectionTests) ... ok
+task_tracker_1  | test_deleting_created_task_removes_it_from_the_collection (task_tracker.tests.test_task_detail.TaskDetailTests) ... ok
+task_tracker_1  | test_retrieving_created_task_returns_it_correctly (task_tracker.tests.test_task_detail.TaskDetailTests) ... ok
+task_tracker_1  | test_updating_task_status_changes_task (task_tracker.tests.test_task_detail.TaskDetailTests) ... ok
+task_tracker_1  | test_state_without_tasks_returns_zero (task_tracker.tests.test_tasks_status.TaskStatusTest) ... ok
+task_tracker_1  | test_tasks_in_different_states_are_summarized_correctly (task_tracker.tests.test_tasks_status.TaskStatusTest) ... ok
+task_tracker_1  | 
+task_tracker_1  | ----------------------------------------------------------------------
+task_tracker_1  | Ran 8 tests in 0.258s
+task_tracker_1  | 
+task_tracker_1  | OK
+task_tracker_1  | Destroying test database for alias 'default' ('test_tasks_tracker')...
+
+```
+
+Alternatively, create a virtualenv and then run the Django test command:
+
 
 ```shell
 $ virtualenv --python=python3 venv/
@@ -125,3 +152,8 @@ $ . ./venv/bin/activate
 $ pip3 install -r requirements.txt
 $ ./manage.py test
 ```
+
+But note that unit tests are coupled with Django models, which in turn are coupled to the database (PostgreSQL, in this case), so running these tests locally will probably be somewhat tricky.
+
+
+docker-compose -f docker-compose-test.yml up --abort-on-container-exit --exit-code-from task_tracker

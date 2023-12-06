@@ -3,7 +3,7 @@ services:
     task_tracker:
         build:
             context: ./d3_project
-            dockerfile: Dockerfile
+            dockerfile: DockerfileTests
         environment:
             API_PORT: 8000
             DB_HOST: db

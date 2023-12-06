@@ -1,0 +1,9 @@
+FROM python:3.9
+
+RUN mkdir -p /root/d3_project
+WORKDIR /root/d3_project
+ADD . ./
+RUN pip3 install --no-cache-dir --upgrade -r requirements.txt
+
+# Run migrations and run unit tests
+ENTRYPOINT ./manage.py makemigrations && ./manage.py migrate && ./manage.py test -v 3
