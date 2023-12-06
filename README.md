@@ -11,6 +11,14 @@ It doesn't offer any sort of authentication capabilities.
 
 # How to start the API
 
+The API is fully virtualized, using docker-compose. To build and run it, follow these steps:
+
+```shell
+$ docker-compose build && docker-compose up
+```
+
+Alternatively, you can create a virtualenv, install the dependencies in it, and run the API locally, like so:
+
 ```shell
 $ mkdir venv/
 $ virtualenv --python=python3 venv/
