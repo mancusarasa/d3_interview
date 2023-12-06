@@ -29,6 +29,8 @@ $ ./manage.py migrate
 $ ./manage.py runserver
 ```
 
+However, note that the API functionality depends on Django models, which in turn depend on the database (PostgreSQL, in this case), so running the API in you host will probably be somewhat tricky.
+
 # How to use the API
 
 The API exposes endpoints to perform several operations regarding the management of tasks:
@@ -154,6 +156,3 @@ $ ./manage.py test
 ```
 
 But note that unit tests are coupled with Django models, which in turn are coupled to the database (PostgreSQL, in this case), so running these tests locally will probably be somewhat tricky.
-
-
-docker-compose -f docker-compose-test.yml up --abort-on-container-exit --exit-code-from task_tracker
