@@ -1,0 +1,8 @@
+version: "3"
+services:
+    task_tracker:
+        build: ./d3_project/
+        environment:
+            API_PORT: 8000
+        ports:
+            - 8000:8000
